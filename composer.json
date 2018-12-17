@@ -1,0 +1,32 @@
+{
+    "name": "jannza/ipayafrica",
+    "type": "library",
+    "description": "iPayAfrica driver for the Omnipay payment processing library",
+    "keywords": [
+        "ipayafrica",
+        "gateway",
+        "merchant",
+        "omnipay",
+        "pay",
+        "payment"
+    ],
+    "homepage": "https://github.com/jannza/ipayafrica",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "jannza",
+            "homepage": "https://github.com/jannza/ipayafrica/contributors"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Omnipay\\iPayAfrica\\" : "src/" }
+    },
+    "require": {
+        "omnipay/common": "~2.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
