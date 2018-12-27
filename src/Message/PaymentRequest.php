@@ -3,9 +3,14 @@
 namespace Omnipay\iPayAfrica\Message;
 
 use Omnipay\Common\Message\AbstractRequest;
+use ReflectionClass;
 
 class PaymentRequest extends AbstractRequest
 {
+
+    const ELIPA                   = 'ELIPA';
+    const IPAY                    = 'IPAY';
+    
     protected $endpoints = array
     (
         'ELIPA' => 'https://payments.elipa.co.tz/v3/tz',
@@ -15,7 +20,7 @@ class PaymentRequest extends AbstractRequest
 
     public function getEndpoint()
     {
-        return $endpoints[$this->getProvider()];
+        return $this->endpoints[$this->getProvider()];
     }
     
     public function getProvider()
@@ -25,11 +30,11 @@ class PaymentRequest extends AbstractRequest
 
     public function setProvider($value)
     {
-        $refl = new ReflectionClass('PaymentMethod');
-        $methods = array_keys($refl);
+        $refl = new ReflectionClass($this);
+        $methods = $refl->getConstants();
         $result = false;
         if(array_key_exists($value, $methods)){
-            $result = $this->setParameter('provider', $value)
+            $result = $this->setParameter('provider', $value);
         }else{
             $result = $this->setParameter('provider', null);
         }
@@ -132,147 +137,147 @@ class PaymentRequest extends AbstractRequest
         return $this->setParameter('saida', $value);
     }
     
-    public function getOrderId()
+    public function getOid()
     {
         return $this->getParameter('oid');
     }
 
-    public function setOrderId($value)
+    public function setOid($value)
     {
         return $this->setParameter('oid', $value);
     }
 
-    public function getInvoiceNumber()
+    public function getInv()
     {
         return $this->getParameter('inv');
     }
 
-    public function setInvoiceNumber($value)
+    public function setInv($value)
     {
         return $this->setParameter('inv', $value);
     }
 
-    public function getAmount()
+    public function getTtl()
     {
         return $this->getParameter('ttl');
     }
 
-    public function setAmount($value)
+    public function setTtl($value)
     {
         return $this->setParameter('ttl', $value);
     }
     
-    public function getPhone()
+    public function getTel()
     {
-        return $this->getParameter('tel');
+        return mb_substr($this->getParameter('tel'), 0, 15);
     }
 
-    public function setPhone($value)
+    public function setTel($value)
     {
         return $this->setParameter('tel', $value);
     }
     
-    public function getEmail()
+    public function getEml()
     {
-        return $this->getParameter('eml');
+        return mb_substr($this->getParameter('eml'), 0, 30);
     }
 
-    public function setEmail($value)
+    public function setEml($value)
     {
         return $this->setParameter('eml', $value);
     }
     
-    public function getVendorId()
+    public function getVid()
     {
         return $this->getParameter('vid');
     }
 
-    public function setVendorId($value)
+    public function setVid($value)
     {
         return $this->setParameter('vid', $value);
     }
     
-    public function getCurrency()
+    public function getCurr()
     {
         return $this->getParameter('curr');
     }
 
-    public function setCurrency($value)
+    public function setCurr($value)
     {
         return $this->setParameter('curr', $value);
     }
     
-    public function getOptional1()
+    public function getP1()
     {
-        return $this->getParameter('p1');
+        return mb_substr($this->getParameter('p1'), 0, 15);
     }
 
-    public function setOptional1($value)
+    public function setP1($value)
     {
         return $this->setParameter('p1', $value);
     }
     
-    public function getOptional2()
+    public function getP2()
     {
-        return $this->getParameter('p2');
+        return mb_substr($this->getParameter('p2'), 0, 15);
     }
 
-    public function setOptional2($value)
+    public function setP2($value)
     {
         return $this->setParameter('p2', $value);
     }
     
-    public function getOptional3()
+    public function getP3()
     {
-        return $this->getParameter('p3');
+        return mb_substr($this->getParameter('p3'), 0, 15);
     }
 
-    public function setOptional3($value)
+    public function setP3($value)
     {
         return $this->setParameter('p3', $value);
     }
     
-    public function getOptional4()
+    public function getP4()
     {
-        return $this->getParameter('p4');
+        return mb_substr($this->getParameter('p4'), 0, 15);
     }
 
-    public function setOptional4($value)
+    public function setP4($value)
     {
         return $this->setParameter('p4', $value);
     }
     
-    public function getNotifyUrl()
+    public function getCbk()
     {
         return $this->getParameter('cbk');
     }
 
-    public function setNotifyUrl($value)
+    public function setCbk($value)
     {
         return $this->setParameter('cbk', $value);
     }
     
-    public function getDeclineUrl()
+    public function getLbk()
     {
         return $this->getParameter('lbk');
     }
 
-    public function setDeclineUrl($value)
+    public function setLbk($value)
     {
         return $this->setParameter('lbk', $value);
     }
     
-    public function getNotifyClient()
+    public function getCst()
     {
         return (int)$this->getParameter('cst');
     }
 
-    public function setNotifyClient($value)
+    public function setCst($value)
     {
         return $this->setParameter('cst', $value);
     }
     
-    public function getCallbackType()
+    public function getCrl()
     {
         return $this->getParameter('crl');
     }
@@ -288,7 +293,7 @@ class PaymentRequest extends AbstractRequest
      *
      * @param int $value callback type
      */
-    public function setCallbackType($value)
+    public function setCrl($value)
     {
         $supported = array(0, 1, 2);
         
@@ -310,32 +315,31 @@ class PaymentRequest extends AbstractRequest
             'creditcard' => $this->getCreditCard(),
             'mkoporahisi' => $this->getMkopoRahisi(),
             'saida' => $this->getSaida(),
-            'oid' => $this->getOrderId(),
-            'inv' => $this->getInvoiceNumber(),
-            'ttl' => $this->getAmount(),
-            'tel' => $this->getPhone(),
-            'eml' => $this->getEmail(),
-            'vid' => $this->getVendorId(),
-            'curr' => $this->getCurrency(),
-            'p1' => $this->getOptional1(),
-            'p2' => $this->getOptional2(),
-            'p3' => $this->getOptional3(),
-            'p4' => $this->getOptional4(),
-            'cbk' => $this->getNotifyUrl(),
-            'lbk' => $this->getDeclineUrl(),
-            'cst' => $this->getNotifyClient(),
-            'crl' => $this->getCallbackType(),
+            'oid' => $this->getOid(),
+            'inv' => $this->getInv(),
+            'ttl' => $this->getTtl(),
+            'tel' => $this->getTel(),
+            'eml' => $this->getEml(),
+            'vid' => $this->getUsername(),
+            'curr' => $this->getCurr(),
+            'p1' => $this->getP1(),
+            'p2' => $this->getP2(),
+            'p3' => $this->getP3(),
+            'p4' => $this->getP4(),
+            'cbk' => $this->getCbk(),
+            'lbk' => $this->getLbk(),
+            'cst' => $this->getCst(),
+            'crl' => $this->getCrl(),
             'hsh' => $this->createChecksum(),
         );
-
         return $data;
     }
     
     public function createChecksum()
     {
-        $concat = $this->getLive().$this->getOrderId().$this->getInvoiceNumber().$this->getAmount().$this->getPhone().$this->getEmail();
-        $concat .= $this->getVendorId().$this->getCurrency().$this->getOptional1().$this->getOptional2().$this->getOptional3().$this->getOptional4();
-        $concat .= $this->getNotifyUrl().$this->getNotifyClient().$this->getCallbackType();
+        $concat = $this->getLive().$this->getOid().$this->getInv().$this->getTtl().$this->getTel().$this->getEml();
+        $concat .= $this->getUsername().$this->getCurr().$this->getP1().$this->getP2().$this->getP3().$this->getP4();
+        $concat .= $this->getCbk().$this->getCst().$this->getCrl();
         
         $hash = hash_hmac("sha1", $concat, $this->getPassword());
 
