@@ -39,11 +39,11 @@ class PaymentResponse extends AbstractResponse implements RedirectResponseInterf
     public function getRedirectData()
     {
         $data = $this->getData();
-        foreach ($data as $key => $value) {
+        /*foreach ($data as $key => $value) {
             if (empty($value)) {
                 unset($data[$key]);
             }
-        }
+        }*/
         return $data;
     }
 
