@@ -38,11 +38,20 @@ class Gateway extends AbstractGateway
 
     /**
      * @param array $parameters
-     * @return \Omnipay\iPayAfrica\Message\PaymentRequest
+     * @return \Omnipay\iPayAfrica\Message\PurchaseRequest
      */
     public function purchase(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\iPayAfrica\Message\PaymentRequest', $parameters);
+        return $this->createRequest('\Omnipay\iPayAfrica\Message\PurchaseRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return \Omnipay\iPayAfrica\Message\PurchaseRequest
+     */
+    public function completePurchase(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\iPayAfrica\Message\CompletePurchaseRequest', $parameters);
     }
 
 }
