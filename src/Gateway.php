@@ -38,20 +38,38 @@ class Gateway extends AbstractGateway
 
     /**
      * @param array $parameters
-     * @return \Omnipay\iPayAfrica\Message\PurchaseRequest
+     * @return \Omnipay\iPayAfrica\Message\PurchaseRequestTanzania
      */
-    public function purchase(array $parameters = array())
+    public function purchaseTanzania(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\iPayAfrica\Message\PurchaseRequest', $parameters);
+        return $this->createRequest('\Omnipay\iPayAfrica\Message\PurchaseRequestTanzania', $parameters);
     }
 
     /**
      * @param array $parameters
-     * @return \Omnipay\iPayAfrica\Message\PurchaseRequest
+     * @return \Omnipay\iPayAfrica\Message\PurchaseRequestKenya
      */
-    public function completePurchase(array $parameters = array())
+    public function purchaseKenya(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\iPayAfrica\Message\CompletePurchaseRequest', $parameters);
+        return $this->createRequest('\Omnipay\iPayAfrica\Message\PurchaseRequestKenya', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return \Omnipay\iPayAfrica\Message\CompletePurchaseRequestTanzania
+     */
+    public function completePurchaseTanzania(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\iPayAfrica\Message\CompletePurchaseRequestTanzania', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return \Omnipay\iPayAfrica\Message\CompletePurchaseRequestKenya
+     */
+    public function completePurchaseKenya(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\iPayAfrica\Message\CompletePurchaseRequestKenya', $parameters);
     }
 
 }

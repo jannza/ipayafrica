@@ -3,37 +3,13 @@
 namespace Omnipay\iPayAfrica\Message;
 
 use Omnipay\Common\Message\AbstractRequest;
-use ReflectionClass;
 
 abstract class Request extends AbstractRequest
 {
 
-    const ELIPA                   = 'ELIPA';
-    const IPAY                    = 'IPAY';
-    
-
     public function getEndpoint()
     {
-        return $this->endpoints[$this->getProvider()];
-    }
-    
-    public function getProvider()
-    {
-        return $this->getParameter('provider');
-    }
-
-    public function setProvider($value)
-    {
-        $refl = new ReflectionClass($this);
-        $methods = $refl->getConstants();
-        $result = false;
-        if(array_key_exists($value, $methods)){
-            $result = $this->setParameter('provider', $value);
-        }else{
-            $result = $this->setParameter('provider', null);
-        }
-
-        return $result;
+        return $this->endpoint;
     }
 
 	public function getUsername()
