@@ -13,6 +13,7 @@ class CompletePurchaseRequestGeneric extends Request
         $data = array
         (
             'vendor' => $this->getUsername(),
+            'id' => $params['id'],
             'ivm' => $params['ivm'],
             'qwh' => $params['qwh'],
             'afd' => $params['afd'],
