@@ -99,6 +99,16 @@ class PurchaseRequestKenya extends PurchaseRequestGeneric
         return $this->setParameter('saida', $value);
     }
     
+    public function getElipa()
+    {
+        return (int)$this->getParameter('elipa');
+    }
+
+    public function setElipa($value)
+    {
+        return $this->setParameter('elipa', $value);
+    }
+    
     public function getData()
     {
         $base = parent::getData();
