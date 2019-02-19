@@ -124,6 +124,7 @@ class PurchaseRequestKenya extends PurchaseRequestGeneric
             'creditcard' => $this->getCreditCard(),
             'mkoporahisi' => $this->getMkopoRahisi(),
             'saida' => $this->getSaida(),
+            'elipa' => $this->getElipa(),
         );
         $complete = array_merge($base, $methods);
         return $complete;
